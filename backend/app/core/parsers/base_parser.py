@@ -15,7 +15,10 @@ class ParsedFileInfo(BaseModel):
     endpoints: List[EndpointInfo] = Field(default_factory=list)
     database_models: List[str] = Field(default_factory=list)
     calls_endpoints: List[str] = Field(default_factory=list)
+    dependencies: List[str] = Field(default_factory=list)
+    callers: List[str] = Field(default_factory=list)
     tags: List[str] = Field(default_factory=list)
+
 
 class BaseParser(ABC):
     @abstractmethod
