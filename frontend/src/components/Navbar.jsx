@@ -15,6 +15,7 @@ import {
 
 export function Navbar({
   currentRepo,
+  onResetWorkflow,
   onOpenRepoModal,
   onOpenSearch,
   onToggleChat,
@@ -38,8 +39,8 @@ export function Navbar({
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
         <div
           style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
-          onClick={() => window.location.reload()}
-          title="Reload application"
+          onClick={onResetWorkflow}
+          title="Reset to empty view"
         >
           <div style={{
             width: '28px',

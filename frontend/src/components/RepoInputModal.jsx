@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  X, 
-  GitBranch, 
-  FolderArchive, 
-  FolderGit2, 
-  Sparkles, 
-  CheckCircle2, 
-  AlertCircle, 
-  Loader2, 
+import {
+  X,
+  GitBranch,
+  FolderArchive,
+  FolderGit2,
+  Sparkles,
+  CheckCircle2,
+  AlertCircle,
+  Loader2,
   ArrowRight,
   Code2,
   Database,
@@ -327,14 +327,14 @@ export function RepoInputModal({ isOpen, onClose, onRepoLoaded, currentRepoId })
                     background: 'rgba(0, 0, 0, 0.2)',
                     transition: 'all 0.2s ease',
                   }}
-                  onDragOver={(e) => { e.preventDefault(); e.currentTarget.style.borderColor = 'var(--cyan)'; }}
-                  onDragLeave={(e) => { e.currentTarget.style.borderColor = 'var(--border-subtle)'; }}
-                  onDrop={(e) => {
-                    e.preventDefault();
-                    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-                      setZipFile(e.dataTransfer.files[0]);
-                    }
-                  }}
+                    onDragOver={(e) => { e.preventDefault(); e.currentTarget.style.borderColor = 'var(--cyan)'; }}
+                    onDragLeave={(e) => { e.currentTarget.style.borderColor = 'var(--border-subtle)'; }}
+                    onDrop={(e) => {
+                      e.preventDefault();
+                      if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                        setZipFile(e.dataTransfer.files[0]);
+                      }
+                    }}
                   >
                     <input
                       type="file"

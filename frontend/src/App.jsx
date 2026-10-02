@@ -6,17 +6,9 @@ import AIChatDrawer from './components/AIChatDrawer';
 import SearchBar from './components/SearchBar';
 import RepoInputModal from './components/RepoInputModal';
 import api from './services/api';
-
-import { 
-  Compass, 
-  Sparkles, 
-  UploadCloud, 
-  Layers, 
-  Cpu, 
-  Globe, 
-  Database,
-  ArrowRight,
-  ShieldCheck
+import {
+  Compass,
+  UploadCloud
 } from 'lucide-react';
 
 export function App() {
@@ -28,9 +20,8 @@ export function App() {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [layoutDirection, setLayoutDirection] = useState('LR'); // 'LR' | 'TB'
   const [systemInfo, setSystemInfo] = useState(null);
-  const [initialLoading, setInitialLoading] = useState(true);
 
-  // Load system info & sample repo on first startup
+  // Load system info on startup without loading preset workflows
   useEffect(() => {
     initApp();
   }, []);
@@ -39,20 +30,17 @@ export function App() {
     try {
       const health = await api.checkHealth();
       setSystemInfo(health);
-
-      // Auto-ingest sample project for instant visual demonstration
-      const sampleRes = await api.ingestRepo({
-        input_type: 'sample',
-        sample_name: 'task_flow_app'
-      });
-      const gData = await api.getGraphData(sampleRes.repo_id);
-      setCurrentRepo(sampleRes.summary);
-      setGraphData(gData);
-      setInitialLoading(false);
     } catch (err) {
       console.warn('Backend startup connection:', err.message);
-      setInitialLoading(false);
     }
+  };
+
+  const handleResetWorkflow = () => {
+    setCurrentRepo(null);
+    setGraphData(null);
+    setSelectedNode(null);
+    setIsChatOpen(false);
+    setIsSearchOpen(false);
   };
 
   const handleRepoLoaded = (summary, graph) => {
@@ -91,6 +79,7 @@ export function App() {
       {/* Top Navbar */}
       <Navbar
         currentRepo={currentRepo}
+        onResetWorkflow={handleResetWorkflow}
         onOpenRepoModal={() => setIsRepoModalOpen(true)}
         onOpenSearch={() => setIsSearchOpen(true)}
         onToggleChat={() => setIsChatOpen(prev => !prev)}
@@ -110,7 +99,7 @@ export function App() {
             layoutDirection={layoutDirection}
           />
         ) : (
-          /* Empty / Welcome Hero State */
+          /* Empty State: Centered CodeMap Logo & Name */
           <div style={{
             height: '100%',
             display: 'flex',
@@ -118,66 +107,41 @@ export function App() {
             alignItems: 'center',
             justifyContent: 'center',
             textAlign: 'center',
-            padding: '20px',
-            gap: '24px'
+            padding: '24px',
+            gap: '18px'
           }}>
             <div style={{
-              width: '64px',
-              height: '64px',
-              borderRadius: 'var(--radius-lg)',
-              background: 'var(--bg-surface)',
-              border: '1px solid var(--border-subtle)',
+              width: '72px',
+              height: '72px',
+              borderRadius: '18px',
+              background: 'var(--bg-surface-elevated)',
+              border: '1px solid var(--border-medium)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
+              boxShadow: '0 8px 32px rgba(0,0,0,0.36)'
             }}>
-              <Compass size={36} color="var(--accent-primary)" />
+              <Compass size={40} color="var(--text-primary)" />
             </div>
 
-            <div style={{ maxWidth: '540px' }}>
-              <h1 style={{ fontSize: '28px', fontWeight: 600, marginBottom: '12px', color: 'var(--text-primary)' }}>
-                Explore Any Codebase Visually with AI
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
+              <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: '28px', fontWeight: 600, color: 'var(--text-primary)', margin: 0 }}>
+                CodeMap
               </h1>
-              <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-                CodeMap AI scans repositories, extracts multi-tier architecture components, traces client-to-backend flows, and enables local line-cited AI explanations.
+              <p style={{ fontSize: '14px', color: 'var(--text-secondary)', maxWidth: '400px', margin: 0, lineHeight: 1.5 }}>
+                AI-powered visual codebase navigator
               </p>
             </div>
 
-            <div style={{ display: 'flex', gap: '14px', alignItems: 'center' }}>
-              <button 
-                className="btn-primary" 
+            <div style={{ display: 'flex', gap: '12px', marginTop: '6px' }}>
+              <button
+                className="btn-primary"
                 onClick={() => setIsRepoModalOpen(true)}
-                style={{ padding: '10px 20px', fontSize: '14px' }}
+                style={{ padding: '10px 22px', fontSize: '14px' }}
               >
                 <UploadCloud size={16} />
-                <span>Load a Repository</span>
-                <ArrowRight size={16} />
+                <span>Load Project</span>
               </button>
-            </div>
-
-            {/* Architecture Highlights */}
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(3, 1fr)',
-              gap: '12px',
-              maxWidth: '700px',
-              marginTop: '10px'
-            }}>
-              <div className="panel-flat" style={{ padding: '16px', textAlign: 'left', borderRadius: 'var(--radius-md)' }}>
-                <Globe size={18} color="var(--accent-primary)" style={{ marginBottom: '8px' }} />
-                <div style={{ fontWeight: 600, fontSize: '13px', color: 'var(--text-primary)', marginBottom: '4px' }}>Frontend UI</div>
-                <div style={{ fontSize: '12px', color: 'var(--text-muted)', lineHeight: 1.4 }}>Extracts React components, JSX props, and state hooks.</div>
-              </div>
-              <div className="panel-flat" style={{ padding: '16px', textAlign: 'left', borderRadius: 'var(--radius-md)' }}>
-                <Cpu size={18} color="var(--emerald)" style={{ marginBottom: '8px' }} />
-                <div style={{ fontWeight: 600, fontSize: '13px', color: 'var(--text-primary)', marginBottom: '4px' }}>API Routes</div>
-                <div style={{ fontSize: '12px', color: 'var(--text-muted)', lineHeight: 1.4 }}>Detects endpoints and links client fetch requests to backend handlers.</div>
-              </div>
-              <div className="panel-flat" style={{ padding: '16px', textAlign: 'left', borderRadius: 'var(--radius-md)' }}>
-                <Database size={18} color="var(--purple)" style={{ marginBottom: '8px' }} />
-                <div style={{ fontWeight: 600, fontSize: '13px', color: 'var(--text-primary)', marginBottom: '4px' }}>Models & RAG</div>
-                <div style={{ fontSize: '12px', color: 'var(--text-muted)', lineHeight: 1.4 }}>Identifies data entities and enables line-cited AI explanations.</div>
-              </div>
             </div>
           </div>
         )}
