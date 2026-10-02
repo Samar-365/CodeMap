@@ -1,0 +1,520 @@
+Project: CodeMap AI — Visual Codebase Navigator
+Version: 1.0
+Project Type: AI-powered developer tool
+Target: Hacktoberfest 2026 — “Build for a Friend”
+1. Introduction
+1.1 Purpose
+CodeMap AI is an AI-powered application that helps developers understand unfamiliar software projects by automatically analyzing a codebase and generating an interactive visual map of its architecture, components, dependencies, and data flow.
+Instead of requiring a developer to manually explore dozens of files, the system provides a visual representation of how different parts of the project are connected.
+Users can select a component in the generated map and ask questions such as:
+- What does this file do?
+- Which files depend on this component?
+- Where is this API called?
+- How does authentication work?
+- Where does this data come from?
+- What could be affected if I modify this file?
+The project will use open-source/open-weight AI as a core component and, where practical, support local processing to keep source code private.
+2. Problem Statement
+When developers join an existing project, understanding the codebase can take significant time.
+A typical project may contain:
+frontend/
+backend/
+components/
+services/
+controllers/
+models/
+routes/
+utils/
+config/
+
+A developer must manually inspect files and determine:
+- How components interact
+- Which functions call each other
+- Where APIs are defined
+- Where APIs are consumed
+- How data moves through the system
+- Which components depend on others
+Traditional code editors show files and symbols, but they don't necessarily provide a high-level visual representation of the entire architecture.
+CodeMap AI addresses this problem by automatically analyzing the repository and presenting its relationships visually.
+3. Objectives
+The primary objectives are:
+1. Accept a software project as input.
+2. Analyze the project's source code and configuration files.
+3. Identify important components and relationships.
+4. Generate an interactive architecture graph.
+5. Use AI to explain components in natural language.
+6. Allow users to ask questions about the analyzed project.
+7. Provide file and code references for AI-generated explanations.
+8. Keep source code private through local processing where supported.
+9. Provide a simple interface suitable for developers unfamiliar with the codebase.
+4. Scope
+4.1 In Scope
+The system will support:
+- GitHub repository URL input
+- Local project/ZIP upload
+- Repository file scanning
+- Source-code parsing
+- Dependency detection
+- Function/class identification
+- API route detection where supported
+- Basic data-flow identification
+- Interactive graph visualization
+- AI-powered explanations
+- Natural-language questions
+- File/code references
+- Search within the analyzed repository
+- Repository analysis history during the active session
+4.2 Out of Scope
+The initial version will not:
+- Automatically modify source code
+- Automatically commit or push changes to GitHub
+- Automatically deploy applications
+- Guarantee complete understanding of every programming language
+- Automatically execute arbitrary repository code
+- Automatically fix bugs
+- Replace an IDE
+5. Target Users
+Primary User
+Developers who need to understand an unfamiliar codebase.
+Example User
+A friend joins a college/project team and receives a repository containing:
+React frontend
++
+Node/Flask backend
++
+Database
+
+They don't know how the components interact.
+They provide the repository to CodeMap AI and receive:
+Frontend
+   ↓
+API Service
+   ↓
+Backend Routes
+   ↓
+Controllers
+   ↓
+Database
+
+They can then click individual components to understand them.
+6. Functional Requirements
+FR-01: Repository Input
+The system shall allow users to provide a repository through:
+- GitHub repository URL
+- Local project directory
+- ZIP file
+Example:
+https://github.com/example/project
+
+FR-02: Repository Validation
+The system shall validate the supplied repository before analysis.
+It should check:
+- Repository accessibility
+- Supported file types
+- File size
+- Repository structure
+Invalid input should generate an appropriate error message.
+FR-03: Repository Scanning
+The system shall scan relevant files within the repository.
+Example:
+.js
+.jsx
+.ts
+.tsx
+.py
+.java
+.json
+.yaml
+.yml
+.md
+
+The exact supported languages can be expanded later.
+FR-04: Code Parsing
+The system shall analyze source code to identify:
+- Files
+- Functions
+- Classes
+- Imports
+- Exports
+- Modules
+- API routes
+- Configuration
+- Dependencies
+FR-05: Relationship Detection
+The system shall identify relationships such as:
+File A
+   ↓ imports
+File B
+
+and:
+Frontend
+   ↓ API call
+Backend Route
+
+Where supported, it should also identify:
+Controller
+    ↓
+Service
+    ↓
+Database
+
+7. Interactive Architecture Map
+FR-06: Graph Generation
+The system shall generate an interactive visual representation of the analyzed repository.
+Example:
+             Frontend
+                 │
+        ┌────────┴────────┐
+        ↓                 ↓
+      Login           Dashboard
+        │                 │
+        ↓                 ↓
+    Auth API          Task API
+        │                 │
+        └────────┬────────┘
+                 ↓
+              Backend
+                 │
+                 ↓
+             Database
+
+FR-07: Graph Interaction
+Users shall be able to:
+- Zoom
+- Pan
+- Select nodes
+- Expand nodes
+- Collapse nodes
+- Search nodes
+- Highlight relationships
+FR-08: Node Information
+When a user selects a node, the system shall display information such as:
+File:
+Login.jsx
+
+Purpose:
+Handles user login.
+
+Imports:
+authService.js
+
+API:
+POST /api/login
+
+Dependencies:
+authService.js
+React Router
+
+8. AI Assistant
+FR-09: AI Explanation
+The system shall use an open-source/open-weight AI model to generate explanations based on repository information.
+Example:
+User:
+What does Login.jsx do?
+
+System:
+Login.jsx handles the login form.
+
+It collects the user's credentials and
+passes them to authService.js, which
+communicates with the backend login API.
+
+FR-10: Repository Questions
+Users shall be able to ask natural-language questions such as:
+How does authentication work?
+
+Where is the database connection created?
+
+Which files handle user registration?
+
+Where is the login API called?
+
+What happens after a user logs in?
+
+FR-11: Context-Aware Answers
+The AI shall use relevant repository information when generating answers rather than answering solely from general model knowledge.
+FR-12: Source References
+AI responses should provide references to relevant files.
+Example:
+Authentication begins in:
+
+src/components/Login.jsx
+src/services/authService.js
+backend/routes/auth.py
+backend/controllers/authController.py
+
+Where possible, references should include line numbers.
+9. Search
+FR-13: Codebase Search
+Users shall be able to search for:
+- File names
+- Functions
+- Classes
+- APIs
+- Variables
+- Components
+Example:
+Search: authentication
+
+Results:
+Login.jsx
+authService.js
+authController.py
+auth.py
+
+10. AI/RAG Pipeline
+The system may use a RAG-based architecture for repository understanding.
+Repository
+     ↓
+File Scanner
+     ↓
+Code Parser
+     ↓
+Code Chunking
+     ↓
+Embeddings
+     ↓
+Vector Store
+     ↓
+Retriever
+     ↓
+Relevant Code
+     ↓
+Open-Weight LLM
+     ↓
+Explanation
+
+The AI should receive only the relevant repository context whenever possible.
+This reduces unnecessary context and helps produce more grounded responses.
+11. Non-Functional Requirements
+NFR-01: Performance
+The system should provide an initial repository analysis within a reasonable time depending on repository size.
+Large repositories should provide progress information.
+Example:
+Scanning repository... 45%
+
+Analyzing dependencies... 70%
+
+Building architecture graph... 90%
+
+NFR-02: Privacy
+The application should prioritize keeping source code private.
+Where local inference is implemented:
+Repository
+    ↓
+Local Processing
+    ↓
+Local AI Model
+
+Source code should not need to be sent to a third-party closed AI API.
+NFR-03: Security
+The application shall:
+- Avoid executing arbitrary repository code during analysis.
+- Sanitize repository paths.
+- Validate uploaded files.
+- Prevent path traversal.
+- Restrict access to analyzed files.
+- Avoid exposing environment variables/secrets.
+NFR-04: Usability
+The interface should be understandable to developers without requiring knowledge of the underlying AI system.
+The primary workflow should be:
+Add Repository
+      ↓
+Analyze
+      ↓
+View Map
+      ↓
+Select Component
+      ↓
+Ask AI
+
+NFR-05: Scalability
+The architecture should allow future support for:
+- Larger repositories
+- Additional programming languages
+- More sophisticated code analysis
+- Multiple AI models
+- Team collaboration
+12. Proposed Technology Stack
+Frontend
+React
+Vite
+JavaScript / TypeScript
+React Flow
+
+React Flow can be used for the interactive architecture graph.
+Backend
+Python
+FastAPI
+
+Code Analysis
+Depending on language:
+Tree-sitter
+AST parsers
+Regex-based detection where appropriate
+
+Embeddings
+sentence-transformers
+
+Vector Database
+For the first version:
+FAISS
+
+AI Model
+Use an open-weight model, for example:
+Gemma
+
+or another suitable open-weight coding/general-purpose model.
+Optional
+Docker
+GitHub Actions
+Render
+
+13. System Architecture
+                    ┌──────────────────┐
+                    │     React UI     │
+                    │                  │
+                    │  Upload / Graph  │
+                    │  Search / Chat   │
+                    └────────┬─────────┘
+                             │
+                             ↓
+                    ┌──────────────────┐
+                    │   FastAPI API    │
+                    └────────┬─────────┘
+                             │
+              ┌──────────────┼──────────────┐
+              ↓              ↓              ↓
+       Repository       Code Parser       AI/RAG
+        Manager             │                │
+              │             ↓                ↓
+              │        Dependency       Retriever
+              │         Analyzer            │
+              │             │                ↓
+              └─────────────┼──────── Open Model
+                            │
+                            ↓
+                    Architecture Graph
+                            │
+                            ↓
+                       React Flow
+
+14. User Workflow
+Step 1
+User opens CodeMap AI.
+Step 2
+User enters:
+GitHub Repository URL
+
+or uploads a ZIP.
+Step 3
+System scans the repository.
+Step 4
+System analyzes:
+Files
+Dependencies
+Functions
+Classes
+APIs
+Relationships
+
+Step 5
+System creates the architecture graph.
+Step 6
+User selects a component.
+Step 7
+AI generates an explanation.
+Step 8
+User asks follow-up questions.
+Step 9
+AI provides answers with relevant file references.
+15. Example Use Case
+Use Case: Understand Authentication
+Actor: Developer
+Input:
+GitHub Repository
+
+Action:
+User asks:
+How does authentication work?
+
+Processing:
+Question
+   ↓
+Retriever
+   ↓
+auth-related files
+   ↓
+Open-weight LLM
+   ↓
+Generated explanation
+
+Output:
+Authentication Flow
+
+1. Login.jsx collects credentials.
+2. authService.js sends them to /api/login.
+3. The backend validates the credentials.
+4. A JWT is generated.
+5. The token is returned to the frontend.
+6. The frontend stores the authentication state.
+
+References:
+- src/components/Login.jsx
+- src/services/authService.js
+- backend/routes/auth.py
+
+16. Error Handling
+The system shall provide clear messages for:
+Invalid repository
+Unable to access repository.
+Check the URL or repository permissions.
+
+Unsupported language
+This repository contains languages that
+are not currently supported for deep analysis.
+
+Empty repository
+No analyzable source files were found.
+
+AI unavailable
+AI explanation is currently unavailable.
+The architecture map is still available.
+
+17. Future Enhancements
+Potential future features:
+1. Multi-language deep analysis.
+2. Git history analysis.
+3. Pull-request impact analysis.
+4. "What breaks if I change this?" analysis.
+5. Automatic documentation generation.
+6. Architecture diagram export.
+7. Code smell detection.
+8. Dependency vulnerability integration.
+9. GitHub issue integration.
+10. IDE extension.
+11. Team collaboration.
+12. Multiple model support.
+18. Hacktoberfest 2026 Relevance
+The project is designed around the “Build for a Friend” challenge.
+The friend could be a developer/classmate who has difficulty understanding unfamiliar repositories.
+The project uses open-source/open-weight AI as a core part of the system, aligning with the challenge's requirement that the open components should be central to how the project works.    Pasted text
+A particularly strong aspect is the potential for local repository analysis, which can help keep private source code on the user's machine.
+The final submission should demonstrate the actual project, explain who it was built for, and explain why the open approach was useful.    Pasted text
+19. Minimum Viable Product (MVP)
+For the Hacktoberfest deadline, don't build everything in this SRS.
+Your MVP should contain only:
+✅ GitHub URL / ZIP input
+✅ Repository scanning
+✅ Basic code parsing
+✅ Dependency detection
+✅ Interactive architecture graph
+✅ Node selection
+✅ AI explanation
+✅ Natural-language questions
+✅ File references
+✅ Open-weight model
+✅ Good UI
+
+Then demonstrate one real scenario:
+“My friend received a project they didn't understand. They gave CodeMap AI the repository, and within minutes they could visually see how the application works and ask questions about individual components.”
