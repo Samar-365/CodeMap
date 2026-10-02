@@ -4,6 +4,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from app.config import settings
+from app.api.routes_repo import router as repo_router
+from app.api.routes_graph import router as graph_router
+from app.api.routes_chat import router as chat_router
+from app.api.routes_search import router as search_router
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -29,6 +33,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Include API routers
+app.include_router(repo_router, prefix=settings.API_V1_STR)
+app.include_router(graph_router, prefix=settings.API_V1_STR)
+app.include_router(chat_router, prefix=settings.API_V1_STR)
+app.include_router(search_router, prefix=settings.API_V1_STR)
+
 @app.get("/")
 async def root():
     return {
@@ -48,3 +58,4 @@ async def health_check():
         "embedding_model": settings.EMBEDDING_MODEL,
         "supported_extensions": list(settings.SUPPORTED_EXTENSIONS)
     }
+
