@@ -200,6 +200,7 @@ export function App() {
           repoId={currentRepo?.repo_id}
           repoSummary={currentRepo}
           selectedNode={selectedNode}
+          isNodeDetailOpen={!!selectedNode}
           onSelectNodeById={handleSelectNodeById}
         />
       </main>

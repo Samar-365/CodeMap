@@ -20,6 +20,7 @@ export function AIChatDrawer({
   repoId,
   repoSummary,
   selectedNode,
+  isNodeDetailOpen = false,
   onSelectNodeById
 }) {
   const [messages, setMessages] = useState([
@@ -114,14 +115,15 @@ export function AIChatDrawer({
     <div className="flat-panel-elevated" style={{
       position: 'fixed',
       top: '56px',
-      right: '12px',
+      right: isNodeDetailOpen ? '504px' : '12px',
       bottom: '12px',
       width: '450px',
-      maxWidth: 'calc(100vw - 24px)',
+      maxWidth: isNodeDetailOpen ? 'calc(50vw - 24px)' : 'calc(100vw - 24px)',
       display: 'flex',
       flexDirection: 'column',
       zIndex: 35,
       overflow: 'hidden',
+      transition: 'right 0.25s cubic-bezier(0.16, 1, 0.3, 1), width 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
     }}>
       {/* Header */}
       <div style={{
@@ -253,23 +255,16 @@ export function AIChatDrawer({
                     <div style={{ fontSize: '11px', color: 'var(--text-muted)', fontWeight: 600 }}>
                       Grounded References:
                     </div>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px', marginTop: '4px' }}>
                       {msg.references.map((ref, rIdx) => (
                         <button
                           key={rIdx}
                           onClick={() => onSelectNodeById(ref.relative_path)}
-                          className="glass-pill"
-                          style={{
-                            fontSize: '10px',
-                            padding: '2px 6px',
-                            fontFamily: 'var(--font-mono)',
-                            color: 'var(--cyan)',
-                            cursor: 'pointer'
-                          }}
+                          className="ref-pill"
                           title={`Click to inspect ${ref.relative_path}`}
                         >
                           <span>{ref.relative_path.split('/').pop()}:L{ref.line_start}-{ref.line_end}</span>
-                          <ChevronRight size={10} />
+                          <ChevronRight size={11} />
                         </button>
                       ))}
                     </div>
@@ -321,7 +316,7 @@ export function AIChatDrawer({
       <div style={{
         padding: '8px 14px',
         borderTop: '1px solid var(--border-subtle)',
-        background: 'rgba(0, 0, 0, 0.15)',
+        background: 'rgba(0, 0, 0, 0.25)',
         display: 'flex',
         gap: '6px',
         overflowX: 'auto',
@@ -337,15 +332,9 @@ export function AIChatDrawer({
             key={pIdx}
             onClick={() => handleQuickPrompt(prompt)}
             disabled={loading}
-            className="glass-pill"
-            style={{
-              fontSize: '11px',
-              padding: '4px 10px',
-              cursor: 'pointer',
-              background: 'rgba(255, 255, 255, 0.03)',
-            }}
+            className="quick-prompt-btn"
           >
-            <Lightbulb size={11} color="var(--amber)" />
+            <Lightbulb size={12} color="#fbbf24" style={{ flexShrink: 0 }} />
             <span>{prompt}</span>
           </button>
         ))}

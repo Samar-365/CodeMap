@@ -28,6 +28,10 @@ class Settings(BaseSettings):
         "__pycache__", "dist", "build", ".next", ".nuxt",
         "coverage", ".idea", ".vscode", "target", "bin", "obj"
     }
+    IGNORED_FILES: set = {
+        "package-lock.json", "yarn.lock", "pnpm-lock.yaml",
+        "poetry.lock", "Pipfile.lock", "composer.lock"
+    }
 
     # CORS settings
     CORS_ORIGINS: list[str] = [
@@ -57,6 +61,6 @@ class Settings(BaseSettings):
 
     class Config:
         case_sensitive = True
-        env_file = ".env"
+        env_file = str(Path(__file__).resolve().parent.parent / ".env")
 
 settings = Settings()

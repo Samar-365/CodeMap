@@ -86,8 +86,8 @@ class FileScanner:
             ]
 
             for file_name in files:
-                # Skip hidden files
-                if file_name.startswith("."):
+                # Skip hidden files and lockfiles
+                if file_name.startswith(".") or file_name.lower() in settings.IGNORED_FILES:
                     continue
 
                 file_path = Path(root) / file_name

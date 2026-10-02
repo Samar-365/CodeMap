@@ -49,25 +49,26 @@ User Question: {question}
 Please provide a clear, step-by-step explanation with file references and line numbers:"""
 
         # 1. Attempt Local Ollama Call
+        model_to_use = settings.DEFAULT_LLM_MODEL
         try:
             ollama_res = requests.post(
                 f"{self.ollama_url}/api/generate",
                 json={
-                    "model": self.default_model,
+                    "model": model_to_use,
                     "prompt": f"{SYSTEM_PROMPT}\n\n{user_prompt}",
                     "stream": False,
                     "options": {"temperature": 0.2, "top_p": 0.9}
                 },
-                timeout=15
+                timeout=60
             )
             if ollama_res.status_code == 200:
                 data = ollama_res.json()
                 answer = data.get("response", "").strip()
                 if answer:
                     latency = round((time.time() - start_time) * 1000, 1)
-                    return answer, f"Ollama ({self.default_model})", latency
+                    return answer, f"Ollama ({model_to_use})", latency
         except Exception as e:
-            # Ollama is not running locally, proceed to fallback
+            # Ollama error or timeout, proceed to fallback
             pass
 
         # 2. Attempt Groq API if key present

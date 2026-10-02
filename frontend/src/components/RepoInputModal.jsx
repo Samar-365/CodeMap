@@ -307,7 +307,7 @@ export function RepoInputModal({ isOpen, onClose, onRepoLoaded, currentRepoId })
                     onBlur={(e) => e.target.style.borderColor = 'var(--border-subtle)'}
                   />
                   <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
-                    💡 Uses fast shallow cloning (<code>--depth 1</code>) to analyze components and relationships without heavy git history.
+                    Uses fast shallow cloning (<code>--depth 1</code>) to analyze components and relationships without heavy git history.
                   </div>
                 </div>
               )}
@@ -383,7 +383,7 @@ export function RepoInputModal({ isOpen, onClose, onRepoLoaded, currentRepoId })
                     onBlur={(e) => e.target.style.borderColor = 'var(--border-subtle)'}
                   />
                   <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
-                    🔒 Code files remain 100% on your machine for privacy.
+                    Code files remain 100% on your machine for privacy.
                   </div>
                 </div>
               )}

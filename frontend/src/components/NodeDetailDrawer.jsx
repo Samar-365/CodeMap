@@ -89,31 +89,31 @@ export function NodeDetailDrawer({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
+        gap: '12px',
         background: 'var(--bg-surface)'
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', overflow: 'hidden' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: 0, flex: 1, overflow: 'hidden' }}>
           <FileCode size={16} color="var(--color-frontend)" style={{ flexShrink: 0 }} />
-          <div style={{ overflow: 'hidden' }}>
+          <div style={{ minWidth: 0, flex: 1, overflow: 'hidden' }}>
             <h3 style={{ fontSize: '14px', margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
               {nodeData.label}
             </h3>
-            <div style={{ fontSize: '11px', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
+            <div style={{ fontSize: '11px', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }} title={nodeData.relative_path}>
               {nodeData.relative_path}
             </div>
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexShrink: 0 }}>
           <button 
-            className="btn-primary" 
+            className="btn-ai" 
             onClick={() => onAskAIAboutFile(nodeData)}
-            style={{ padding: '4px 10px', fontSize: '12px' }}
             title="Ask AI questions about this component"
           >
-            <Sparkles size={12} />
+            <Sparkles size={13} style={{ flexShrink: 0 }} />
             <span>Ask AI</span>
           </button>
-          <button className="btn-icon" onClick={onClose} style={{ padding: '4px' }}>
+          <button className="btn-icon" onClick={onClose} style={{ padding: '5px' }}>
             <X size={14} />
           </button>
         </div>

@@ -98,6 +98,7 @@ export function GraphView({
         fitView
         minZoom={0.2}
         maxZoom={2}
+        proOptions={{ hideAttribution: true }}
         defaultEdgeOptions={{ type: 'smoothstep' }}
       >
         <Controls showInteractive={false} />

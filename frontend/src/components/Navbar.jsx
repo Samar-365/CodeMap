@@ -1,27 +1,27 @@
 import React from 'react';
-import { 
-  Compass, 
-  Search, 
-  MessageSquare, 
-  UploadCloud, 
-  Layers, 
-  Sparkles, 
-  ArrowRightLeft, 
+import {
+  Compass,
+  Search,
+  MessageSquare,
+  UploadCloud,
+  Layers,
+  Sparkles,
+  ArrowRightLeft,
   ArrowUpDown,
   Cpu,
   GitBranch
 } from 'lucide-react';
 
 
-export function Navbar({ 
-  currentRepo, 
-  onOpenRepoModal, 
-  onOpenSearch, 
-  onToggleChat, 
+export function Navbar({
+  currentRepo,
+  onOpenRepoModal,
+  onOpenSearch,
+  onToggleChat,
   isChatOpen,
-  layoutDirection, 
+  layoutDirection,
   onToggleLayout,
-  systemInfo 
+  systemInfo
 }) {
   return (
     <header style={{
@@ -36,8 +36,8 @@ export function Navbar({
     }}>
       {/* Brand & Active Repo */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-        <div 
-          style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }} 
+        <div
+          style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
           onClick={onOpenRepoModal}
         >
           <div style={{
@@ -54,31 +54,20 @@ export function Navbar({
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
             <span style={{ fontFamily: 'var(--font-heading)', fontWeight: 600, fontSize: '15px', color: 'var(--text-primary)' }}>
-              CodeMap AI
-            </span>
-            <span style={{
-              fontSize: '10px',
-              fontWeight: 600,
-              background: 'var(--bg-surface-elevated)',
-              color: 'var(--text-muted)',
-              border: '1px solid var(--border-subtle)',
-              padding: '1px 5px',
-              borderRadius: 'var(--radius-xs)'
-            }}>
-              v1.0
+              CodeMap
             </span>
           </div>
         </div>
 
         {/* Active Repo Badge */}
         {currentRepo && (
-          <div 
-            className="flat-badge" 
-            style={{ cursor: 'pointer', background: 'var(--bg-card)' }} 
-            onClick={onOpenRepoModal} 
+          <div
+            className="flat-badge"
+            style={{ cursor: 'pointer', background: 'var(--bg-card)' }}
+            onClick={onOpenRepoModal}
             title="Click to switch repository"
           >
-            <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--color-api)' }}></span>
+            <span style={{ color: 'var(--text-muted)', fontSize: '11px', fontWeight: 500 }}>Project:</span>
             <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{currentRepo.repo_name}</span>
             <span style={{ color: 'var(--text-dim)' }}>•</span>
             <span>{currentRepo.file_count} files</span>
@@ -90,7 +79,7 @@ export function Navbar({
 
       {/* Middle: Search Trigger */}
       <div style={{ flex: '1', maxWidth: '360px', margin: '0 16px' }}>
-        <button 
+        <button
           onClick={onOpenSearch}
           style={{
             width: '100%',
@@ -136,8 +125,8 @@ export function Navbar({
       {/* Right Controls */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
         {/* Layout Orientation Toggle */}
-        <button 
-          className="btn-icon" 
+        <button
+          className="btn-icon"
           onClick={onToggleLayout}
           title={`Switch layout orientation (Current: ${layoutDirection})`}
         >
@@ -151,7 +140,7 @@ export function Navbar({
         </button>
 
         {/* AI Explainer Chat Toggle */}
-        <button 
+        <button
           className="btn-primary"
           onClick={onToggleChat}
           style={{
