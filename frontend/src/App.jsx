@@ -140,7 +140,7 @@ export function App() {
                 style={{ padding: '10px 22px', fontSize: '14px' }}
               >
                 <UploadCloud size={16} />
-                <span>Load Project</span>
+                <span>Load Codebase</span>
               </button>
             </div>
           </div>

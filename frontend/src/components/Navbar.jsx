@@ -110,17 +110,6 @@ export function Navbar({
             <Search size={13} color="var(--text-muted)" />
             <span>Search files, routes, symbols...</span>
           </div>
-          <kbd style={{
-            background: 'var(--bg-surface-elevated)',
-            border: '1px solid var(--border-subtle)',
-            borderRadius: '3px',
-            padding: '1px 5px',
-            fontSize: '10px',
-            fontFamily: 'var(--font-mono)',
-            color: 'var(--text-muted)'
-          }}>
-            Ctrl K
-          </kbd>
         </button>
       </div>
 
@@ -138,7 +127,7 @@ export function Navbar({
         {/* Repository Switcher Button */}
         <button className="btn-secondary" onClick={onOpenRepoModal}>
           <UploadCloud size={14} />
-          <span>Load Repo</span>
+          <span>Load Codebase</span>
         </button>
 
         {/* AI Explainer Chat Toggle */}

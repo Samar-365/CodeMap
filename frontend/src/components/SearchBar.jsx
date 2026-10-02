@@ -146,17 +146,21 @@ export function SearchBar({
               fontFamily: 'var(--font-heading)'
             }}
           />
-          <kbd style={{
-            background: 'var(--bg-surface-elevated)',
-            border: '1px solid var(--border-subtle)',
-            borderRadius: '3px',
-            padding: '1px 5px',
-            fontSize: '10px',
-            fontFamily: 'var(--font-mono)',
-            color: 'var(--text-muted)'
-          }}>
-            ESC
-          </kbd>
+          <button
+            onClick={onClose}
+            className="btn-icon"
+            style={{
+              padding: '4px',
+              borderRadius: 'var(--radius-xs)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: 'var(--text-muted)'
+            }}
+            title="Close search"
+          >
+            <X size={16} />
+          </button>
         </div>
 
         {/* Filter Pills */}
