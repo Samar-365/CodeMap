@@ -21,7 +21,7 @@ export function App() {
   const [layoutDirection, setLayoutDirection] = useState('LR'); // 'LR' | 'TB'
   const [systemInfo, setSystemInfo] = useState(null);
 
-  // Load system info on startup without loading preset workflows
+  // Load system info & restore previous active codebase on refresh
   useEffect(() => {
     initApp();
   }, []);
@@ -30,12 +30,37 @@ export function App() {
     try {
       const health = await api.checkHealth();
       setSystemInfo(health);
+
+      // Restore active codebase from local storage if user refreshed the page
+      const savedRepoStr = localStorage.getItem('codemap_active_repo');
+      const savedGraphStr = localStorage.getItem('codemap_active_graph');
+
+      if (savedRepoStr) {
+        const parsedRepo = JSON.parse(savedRepoStr);
+        setCurrentRepo(parsedRepo);
+
+        if (savedGraphStr) {
+          setGraphData(JSON.parse(savedGraphStr));
+        } else if (parsedRepo.repo_id) {
+          try {
+            const gData = await api.getGraphData(parsedRepo.repo_id);
+            if (gData && gData.nodes && gData.nodes.length > 0) {
+              setGraphData(gData);
+              localStorage.setItem('codemap_active_graph', JSON.stringify(gData));
+            }
+          } catch (fetchErr) {
+            console.warn('Could not re-fetch graph data on refresh:', fetchErr.message);
+          }
+        }
+      }
     } catch (err) {
       console.warn('Backend startup connection:', err.message);
     }
   };
 
   const handleResetWorkflow = () => {
+    localStorage.removeItem('codemap_active_repo');
+    localStorage.removeItem('codemap_active_graph');
     setCurrentRepo(null);
     setGraphData(null);
     setSelectedNode(null);
@@ -47,6 +72,12 @@ export function App() {
     setCurrentRepo(summary);
     setGraphData(graph);
     setSelectedNode(null);
+    try {
+      localStorage.setItem('codemap_active_repo', JSON.stringify(summary));
+      localStorage.setItem('codemap_active_graph', JSON.stringify(graph));
+    } catch (storageErr) {
+      console.warn('Could not save active graph to localStorage:', storageErr);
+    }
   };
 
   const handleNodeSelect = (node) => {
