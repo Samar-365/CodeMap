@@ -13,6 +13,8 @@ from app.schemas.repo import (
     RepoInputType, RepoSummary, RepoStatusEnum, RepoFileManifest
 )
 from app.core.file_scanner import FileScanner
+from app.core.graph_builder import GraphBuilder
+from app.schemas.graph import GraphDataResponse, NodeDetailResponse, NodeData, LayerType
 
 class RepoManager:
     def __init__(self):
@@ -35,6 +37,70 @@ class RepoManager:
         if not repo_entry:
             return []
         return repo_entry.get("manifest", [])
+
+    def get_graph(self, repo_id: str) -> Optional[GraphDataResponse]:
+        repo_entry = self._repos.get(repo_id)
+        if not repo_entry:
+            return None
+        
+        # If not already built, build it now
+        if "graph" not in repo_entry:
+            summary: RepoSummary = repo_entry["summary"]
+            root_path: Path = repo_entry["path"]
+            manifest: List[RepoFileManifest] = repo_entry["manifest"]
+            builder = GraphBuilder(repo_id, summary.repo_name, root_path, manifest)
+            repo_entry["graph"] = builder.build_graph()
+
+        return repo_entry["graph"]
+
+    def get_node_details(self, repo_id: str, node_id: str) -> Optional[NodeDetailResponse]:
+        graph = self.get_graph(repo_id)
+        if not graph:
+            return None
+
+        # Find matching node in graph
+        target_node: Optional[NodeData] = None
+        for node in graph.nodes:
+            if node.id == node_id or node.data.relative_path == node_id:
+                target_node = node.data
+                break
+
+        if not target_node:
+            return None
+
+        root_path = self.get_repo_path(repo_id)
+        source_code = "// Unable to load source code."
+        if root_path:
+            file_abs = root_path / target_node.relative_path
+            if file_abs.exists() and file_abs.is_file():
+                try:
+                    with open(file_abs, "r", encoding="utf-8", errors="ignore") as f:
+                        source_code = f.read()
+                except Exception as e:
+                    source_code = f"// Error reading file: {e}"
+
+        # Map language to prism identifier
+        lang_map = {
+            "Python": "python",
+            "JavaScript": "javascript",
+            "JavaScript (React)": "jsx",
+            "TypeScript": "typescript",
+            "TypeScript (React)": "tsx",
+            "JSON": "json",
+            "YAML": "yaml",
+            "Markdown": "markdown",
+            "HTML": "html",
+            "CSS": "css",
+            "SQL": "sql"
+        }
+        prism_lang = lang_map.get(target_node.language, "javascript")
+
+        return NodeDetailResponse(
+            node=target_node,
+            source_code=source_code,
+            formatted_language=prism_lang
+        )
+
 
     def ingest_github(self, url: str) -> Tuple[RepoSummary, List[RepoFileManifest]]:
         if not url or not (url.startswith("http://") or url.startswith("https://") or url.startswith("git@")):
