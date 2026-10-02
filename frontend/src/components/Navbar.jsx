@@ -38,7 +38,8 @@ export function Navbar({
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
         <div
           style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
-          onClick={onOpenRepoModal}
+          onClick={() => window.location.reload()}
+          title="Reload application"
         >
           <div style={{
             width: '28px',
