@@ -122,25 +122,24 @@ export function App() {
             gap: '24px'
           }}>
             <div style={{
-              width: '80px',
-              height: '80px',
-              borderRadius: '24px',
-              background: 'linear-gradient(135deg, rgba(6, 182, 212, 0.2) 0%, rgba(168, 85, 247, 0.2) 100%)',
-              border: '1px solid var(--border-glow-cyan)',
+              width: '64px',
+              height: '64px',
+              borderRadius: 'var(--radius-lg)',
+              background: 'var(--bg-surface)',
+              border: '1px solid var(--border-subtle)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              boxShadow: '0 0 30px rgba(6, 182, 212, 0.3)'
             }}>
-              <Compass size={44} color="var(--cyan)" />
+              <Compass size={36} color="var(--accent-primary)" />
             </div>
 
             <div style={{ maxWidth: '540px' }}>
-              <h1 style={{ fontSize: '32px', marginBottom: '12px' }}>
-                Explore Any Codebase Visually with <span style={{ color: 'var(--cyan)' }}>AI</span>
+              <h1 style={{ fontSize: '28px', fontWeight: 600, marginBottom: '12px', color: 'var(--text-primary)' }}>
+                Explore Any Codebase Visually with AI
               </h1>
-              <p style={{ fontSize: '15px', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-                CodeMap AI automatically scans repositories, maps multi-tier architecture components, and allows you to trace data flows and ask questions grounded in code.
+              <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+                CodeMap AI scans repositories, extracts multi-tier architecture components, traces client-to-backend flows, and enables local line-cited AI explanations.
               </p>
             </div>
 
@@ -148,11 +147,11 @@ export function App() {
               <button 
                 className="btn-primary" 
                 onClick={() => setIsRepoModalOpen(true)}
-                style={{ padding: '12px 24px', fontSize: '15px' }}
+                style={{ padding: '10px 20px', fontSize: '14px' }}
               >
-                <UploadCloud size={18} />
+                <UploadCloud size={16} />
                 <span>Load a Repository</span>
-                <ArrowRight size={18} />
+                <ArrowRight size={16} />
               </button>
             </div>
 
@@ -160,24 +159,24 @@ export function App() {
             <div style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(3, 1fr)',
-              gap: '16px',
+              gap: '12px',
               maxWidth: '700px',
               marginTop: '10px'
             }}>
-              <div className="glass-panel" style={{ padding: '16px', textAlign: 'left' }}>
-                <Globe size={20} color="var(--cyan)" style={{ marginBottom: '8px' }} />
-                <div style={{ fontWeight: 600, fontSize: '14px', color: '#fff', marginBottom: '4px' }}>Frontend UI</div>
-                <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Extracts React components, JSX props, and state hooks.</div>
+              <div className="panel-flat" style={{ padding: '16px', textAlign: 'left', borderRadius: 'var(--radius-md)' }}>
+                <Globe size={18} color="var(--accent-primary)" style={{ marginBottom: '8px' }} />
+                <div style={{ fontWeight: 600, fontSize: '13px', color: 'var(--text-primary)', marginBottom: '4px' }}>Frontend UI</div>
+                <div style={{ fontSize: '12px', color: 'var(--text-muted)', lineHeight: 1.4 }}>Extracts React components, JSX props, and state hooks.</div>
               </div>
-              <div className="glass-panel" style={{ padding: '16px', textAlign: 'left' }}>
-                <Cpu size={20} color="var(--emerald)" style={{ marginBottom: '8px' }} />
-                <div style={{ fontWeight: 600, fontSize: '14px', color: '#fff', marginBottom: '4px' }}>API Routes</div>
-                <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Detects endpoints and links client fetch requests to backend handlers.</div>
+              <div className="panel-flat" style={{ padding: '16px', textAlign: 'left', borderRadius: 'var(--radius-md)' }}>
+                <Cpu size={18} color="var(--emerald)" style={{ marginBottom: '8px' }} />
+                <div style={{ fontWeight: 600, fontSize: '13px', color: 'var(--text-primary)', marginBottom: '4px' }}>API Routes</div>
+                <div style={{ fontSize: '12px', color: 'var(--text-muted)', lineHeight: 1.4 }}>Detects endpoints and links client fetch requests to backend handlers.</div>
               </div>
-              <div className="glass-panel" style={{ padding: '16px', textAlign: 'left' }}>
-                <Database size={20} color="var(--purple)" style={{ marginBottom: '8px' }} />
-                <div style={{ fontWeight: 600, fontSize: '14px', color: '#fff', marginBottom: '4px' }}>Models & RAG</div>
-                <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Identifies data entities and enables line-cited AI explanations.</div>
+              <div className="panel-flat" style={{ padding: '16px', textAlign: 'left', borderRadius: 'var(--radius-md)' }}>
+                <Database size={18} color="var(--purple)" style={{ marginBottom: '8px' }} />
+                <div style={{ fontWeight: 600, fontSize: '13px', color: 'var(--text-primary)', marginBottom: '4px' }}>Models & RAG</div>
+                <div style={{ fontSize: '12px', color: 'var(--text-muted)', lineHeight: 1.4 }}>Identifies data entities and enables line-cited AI explanations.</div>
               </div>
             </div>
           </div>

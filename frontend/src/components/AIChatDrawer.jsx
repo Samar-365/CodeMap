@@ -111,63 +111,63 @@ export function AIChatDrawer({
   if (!isOpen) return null;
 
   return (
-    <div className="glass-panel-heavy animate-fade-in" style={{
+    <div className="flat-panel-elevated" style={{
       position: 'fixed',
-      top: '72px',
-      right: '16px',
-      bottom: '16px',
-      width: '460px',
-      maxWidth: 'calc(100vw - 32px)',
+      top: '56px',
+      right: '12px',
+      bottom: '12px',
+      width: '450px',
+      maxWidth: 'calc(100vw - 24px)',
       display: 'flex',
       flexDirection: 'column',
       zIndex: 35,
       overflow: 'hidden',
-      boxShadow: '0 20px 50px rgba(0, 0, 0, 0.75)',
     }}>
       {/* Header */}
       <div style={{
-        padding: '14px 18px',
+        padding: '12px 16px',
         borderBottom: '1px solid var(--border-subtle)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        background: 'rgba(0, 0, 0, 0.3)'
+        background: 'var(--bg-surface)'
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <div style={{
-            width: '32px',
-            height: '32px',
-            borderRadius: '8px',
-            background: 'linear-gradient(135deg, #a855f7 0%, #3b82f6 100%)',
+            width: '26px',
+            height: '26px',
+            borderRadius: 'var(--radius-xs)',
+            background: 'var(--bg-surface-elevated)',
+            border: '1px solid var(--border-medium)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            boxShadow: '0 0 12px rgba(168, 85, 247, 0.4)'
           }}>
-            <Sparkles size={16} color="#fff" />
+            <Sparkles size={14} color="var(--color-model)" />
           </div>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <span style={{ fontWeight: 600, fontSize: '14px', color: '#fff' }}>CodeMap AI</span>
-              <span className="glass-pill badge-model" style={{ fontSize: '10px', padding: '1px 6px' }}>
-                Gemma / Local
+              <span style={{ fontWeight: 600, fontSize: '14px', color: 'var(--text-primary)' }}>CodeMap AI</span>
+              <span className="flat-badge badge-model" style={{ fontSize: '9px', padding: '1px 5px' }}>
+                Local RAG
               </span>
             </div>
-            <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>
+            <div style={{ fontSize: '10px', color: 'var(--text-muted)' }}>
               Context-Grounded Explainer
             </div>
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-          <button className="btn-icon" onClick={clearChat} title="Clear conversation" style={{ padding: '6px' }}>
-            <RotateCcw size={14} />
+        <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+          <button className="btn-icon" onClick={clearChat} title="Clear conversation" style={{ padding: '4px' }}>
+            <RotateCcw size={13} />
           </button>
-          <button className="btn-icon" onClick={onClose} style={{ padding: '6px' }}>
-            <X size={16} />
+          <button className="btn-icon" onClick={onClose} style={{ padding: '4px' }}>
+            <X size={14} />
           </button>
         </div>
       </div>
+
 
       {/* Active Node Context Banner */}
       {activeContextNode && (

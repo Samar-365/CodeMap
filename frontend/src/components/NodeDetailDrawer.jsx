@@ -70,43 +70,31 @@ export function NodeDetailDrawer({
   if (!nodeData) return null;
 
   return (
-    <div className="glass-panel-heavy animate-fade-in" style={{
+    <div className="flat-panel-elevated" style={{
       position: 'fixed',
-      top: '72px',
-      right: '16px',
-      bottom: '16px',
-      width: '500px',
-      maxWidth: 'calc(100vw - 32px)',
+      top: '56px',
+      right: '12px',
+      bottom: '12px',
+      width: '480px',
+      maxWidth: 'calc(100vw - 24px)',
       display: 'flex',
       flexDirection: 'column',
       zIndex: 30,
       overflow: 'hidden',
-      boxShadow: '0 20px 50px rgba(0, 0, 0, 0.7)',
     }}>
       {/* Drawer Header */}
       <div style={{
-        padding: '16px 20px',
+        padding: '12px 16px',
         borderBottom: '1px solid var(--border-subtle)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        background: 'rgba(0, 0, 0, 0.25)'
+        background: 'var(--bg-surface)'
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', overflow: 'hidden' }}>
-          <div style={{
-            width: '32px',
-            height: '32px',
-            borderRadius: '8px',
-            background: 'rgba(6, 182, 212, 0.15)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexShrink: 0
-          }}>
-            <FileCode size={18} color="var(--cyan)" />
-          </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', overflow: 'hidden' }}>
+          <FileCode size={16} color="var(--color-frontend)" style={{ flexShrink: 0 }} />
           <div style={{ overflow: 'hidden' }}>
-            <h3 style={{ fontSize: '15px', margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+            <h3 style={{ fontSize: '14px', margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
               {nodeData.label}
             </h3>
             <div style={{ fontSize: '11px', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
@@ -115,49 +103,50 @@ export function NodeDetailDrawer({
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
           <button 
             className="btn-primary" 
             onClick={() => onAskAIAboutFile(nodeData)}
-            style={{ padding: '6px 12px', fontSize: '12px' }}
+            style={{ padding: '4px 10px', fontSize: '12px' }}
             title="Ask AI questions about this component"
           >
-            <Sparkles size={13} />
+            <Sparkles size={12} />
             <span>Ask AI</span>
           </button>
-          <button className="btn-icon" onClick={onClose}>
-            <X size={16} />
+          <button className="btn-icon" onClick={onClose} style={{ padding: '4px' }}>
+            <X size={14} />
           </button>
         </div>
       </div>
 
       {/* Drawer Content */}
-      <div style={{ flex: 1, overflowY: 'auto', padding: '18px 20px', display: 'flex', flexDirection: 'column', gap: '18px' }}>
+      <div style={{ flex: 1, overflowY: 'auto', padding: '14px 16px', display: 'flex', flexDirection: 'column', gap: '14px' }}>
         {/* Purpose Overview Card */}
         <div style={{
-          background: 'rgba(255, 255, 255, 0.03)',
+          background: 'var(--bg-surface)',
           border: '1px solid var(--border-subtle)',
-          borderRadius: 'var(--radius-md)',
-          padding: '12px 14px',
+          borderRadius: 'var(--radius-sm)',
+          padding: '10px 12px',
         }}>
-          <div style={{ fontSize: '11px', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 600, marginBottom: '6px' }}>
+          <div style={{ fontSize: '10px', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 600, marginBottom: '4px' }}>
             Role & Purpose
           </div>
-          <div style={{ fontSize: '13px', color: 'var(--text-primary)', lineHeight: 1.5 }}>
+          <div style={{ fontSize: '12px', color: 'var(--text-primary)', lineHeight: 1.5 }}>
             {nodeData.purpose_summary || 'Component module within the system.'}
           </div>
-          <div style={{ display: 'flex', gap: '6px', marginTop: '10px', flexWrap: 'wrap' }}>
-            <span className={`glass-pill badge-${nodeData.layer}`} style={{ fontSize: '11px' }}>
+          <div style={{ display: 'flex', gap: '6px', marginTop: '8px', flexWrap: 'wrap' }}>
+            <span className={`flat-badge badge-${nodeData.layer}`} style={{ fontSize: '10px' }}>
               {nodeData.layer}
             </span>
-            <span className="glass-pill" style={{ fontSize: '11px' }}>
+            <span className="flat-badge" style={{ fontSize: '10px' }}>
               {nodeData.language}
             </span>
-            <span className="glass-pill" style={{ fontSize: '11px' }}>
+            <span className="flat-badge" style={{ fontSize: '10px' }}>
               {nodeData.line_count} lines
             </span>
           </div>
         </div>
+
 
         {/* Exposed Endpoints (if any) */}
         {nodeData.endpoints && nodeData.endpoints.length > 0 && (

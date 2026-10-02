@@ -103,11 +103,11 @@ export function GraphView({
         <Controls showInteractive={false} />
         <MiniMap 
           nodeColor={nodeColor}
-          maskColor="rgba(7, 9, 14, 0.7)"
+          maskColor="rgba(9, 9, 11, 0.75)"
           style={{
-            height: 110,
-            width: 160,
-            background: 'rgba(16, 23, 38, 0.85)',
+            height: 100,
+            width: 150,
+            background: 'var(--bg-surface)',
             border: '1px solid var(--border-subtle)',
             borderRadius: 'var(--radius-md)',
           }}

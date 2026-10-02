@@ -64,7 +64,7 @@ export const CodeNode = memo(({ data, isConnectable, selected }) => {
     <div 
       className={`custom-node ${selected ? 'selected' : ''}`}
       style={{
-        borderLeft: `4px solid ${layerMeta.borderColor}`,
+        borderLeft: `3px solid ${layerMeta.borderColor}`,
       }}
     >
       {/* Target Connection Handle */}
@@ -74,34 +74,24 @@ export const CodeNode = memo(({ data, isConnectable, selected }) => {
         isConnectable={isConnectable}
         style={{
           background: layerMeta.borderColor,
-          width: 8,
-          height: 8,
-          border: '2px solid #07090e'
+          width: 6,
+          height: 6,
+          border: '1px solid var(--border-subtle)'
         }}
       />
 
       {/* Node Header */}
       <div className="custom-node-header">
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <div style={{
-            width: '24px',
-            height: '24px',
-            borderRadius: '6px',
-            background: 'rgba(255, 255, 255, 0.05)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}>
-            <IconComponent size={14} color={layerMeta.borderColor} />
-          </div>
-          <div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', overflow: 'hidden' }}>
+          <IconComponent size={14} color={layerMeta.borderColor} style={{ flexShrink: 0 }} />
+          <div style={{ overflow: 'hidden' }}>
             <div className="custom-node-title" title={data.label}>{data.label}</div>
             <div className="custom-node-subtitle">{data.relative_path}</div>
           </div>
         </div>
 
         {/* Layer Badge */}
-        <span className={`glass-pill ${layerMeta.badgeClass}`} style={{ fontSize: '10px', padding: '2px 6px' }}>
+        <span className={`flat-badge ${layerMeta.badgeClass}`} style={{ fontSize: '10px', padding: '1px 5px', flexShrink: 0 }}>
           {layerMeta.label}
         </span>
       </div>
@@ -113,22 +103,23 @@ export const CodeNode = memo(({ data, isConnectable, selected }) => {
 
       {/* Tags & Metrics Footer */}
       <div style={{
-        marginTop: '10px',
-        paddingTop: '8px',
+        marginTop: '8px',
+        paddingTop: '6px',
         borderTop: '1px solid var(--border-subtle)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        fontSize: '11px',
+        fontSize: '10px',
         color: 'var(--text-muted)'
       }}>
         <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap' }}>
           {data.tags && data.tags.slice(0, 2).map((t) => (
             <span key={t} style={{
-              background: 'rgba(255, 255, 255, 0.04)',
-              padding: '1px 6px',
-              borderRadius: '4px',
-              fontSize: '10px',
+              background: 'var(--bg-surface-elevated)',
+              border: '1px solid var(--border-subtle)',
+              padding: '1px 4px',
+              borderRadius: '3px',
+              fontSize: '9px',
               color: 'var(--text-secondary)'
             }}>
               {t}
@@ -147,13 +138,14 @@ export const CodeNode = memo(({ data, isConnectable, selected }) => {
         isConnectable={isConnectable}
         style={{
           background: layerMeta.borderColor,
-          width: 8,
-          height: 8,
-          border: '2px solid #07090e'
+          width: 6,
+          height: 6,
+          border: '1px solid var(--border-subtle)'
         }}
       />
     </div>
   );
 });
+
 
 export default CodeNode;

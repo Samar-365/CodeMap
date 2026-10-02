@@ -68,19 +68,21 @@
 
 ---
 
-### 🔹 [2026-10-02] Phase 5: High-Aesthetic Interactive UI & Launch Scripts
-- **Sub-phase 5.1: Cyber-Dark Glassmorphism Design System** (`Commit 5136a90`)
-  - Built `frontend/src/index.css`: Glassmorphic cards, glowing neon accents, layer badges, custom scrollbars, and React Flow theme overrides.
+### 🔹 [2026-10-02] Phase 5: Interactive UI & Launch Scripts
+- **Sub-phase 5.1: Flat & Clean Dark Design System**
+  - Built `frontend/src/index.css`: Re-engineered UI into a simple, dark, and flat design system (Linear / VS Code style) using solid background layers (`#09090b`, `#121215`, `#18181b`), subtle 1px borders (`#27272a`), refined typography, and high-contrast layer indicators.
 - **Sub-phase 5.2 — 5.6: Interactive Frontend Components** (`Commit 61af856`)
   - Built `Navbar.jsx`: Top controls, active repo metrics, layout orientation toggle, and search trigger.
   - Built `RepoInputModal.jsx`: Ingestion modal supporting Samples, GitHub URL, ZIP upload, and Local folders.
-  - Built `GraphView.jsx` & `CodeNode.jsx`: React Flow canvas with custom glowing nodes, animated API edges, and MiniMap.
-  - Built `NodeDetailDrawer.jsx`: Side inspector displaying component purpose, caller tree, exposed endpoints, and PrismJS syntax-highlighted code.
-  - Built `AIChatDrawer.jsx`: AI conversation drawer with quick prompt chips and clickable source references.
-  - Built `SearchBar.jsx`: Global `Ctrl + K` fuzzy search across files, routes, classes, and components.
+  - Built `GraphView.jsx` & `CodeNode.jsx`: React Flow canvas with custom flat dark nodes, crisp layer badges, animated API edges, and MiniMap.
+  - Built `NodeDetailDrawer.jsx`: Side inspector displaying component purpose, caller tree, exposed endpoints, and PrismJS syntax-highlighted code with flat tabs.
+  - Built `AIChatDrawer.jsx`: AI conversation drawer with clean message bubbles, quick prompt chips, and clickable source references.
+  - Built `SearchBar.jsx`: Global `Ctrl + K` fuzzy search modal across files, routes, classes, and components.
   - Assembled main application in `App.jsx`.
 - **Runner Scripts** (`Commit c95e85c`)
   - Added `run_app.bat` (Windows) and `run_app.sh` (Linux/macOS) for single-command full-stack startup.
+- **UI Refresh: Flat Dark Theme Polish**
+  - Eliminated distracting heavy glows and glassmorphism blurs in favor of a clean, developer-focused, high-contrast dark aesthetic.
 
 ---
 

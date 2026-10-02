@@ -106,17 +106,16 @@ export function RepoInputModal({ isOpen, onClose, onRepoLoaded, currentRepoId })
       left: 0,
       right: 0,
       bottom: 0,
-      backgroundColor: 'rgba(5, 8, 15, 0.85)',
-      backdropFilter: 'blur(12px)',
+      backgroundColor: 'rgba(0, 0, 0, 0.75)',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
       zIndex: 100,
       padding: '20px'
     }}>
-      <div className="glass-panel-heavy animate-fade-in" style={{
+      <div className="flat-panel-elevated" style={{
         width: '100%',
-        maxWidth: '620px',
+        maxWidth: '580px',
         maxHeight: '90vh',
         display: 'flex',
         flexDirection: 'column',
@@ -125,43 +124,34 @@ export function RepoInputModal({ isOpen, onClose, onRepoLoaded, currentRepoId })
       }}>
         {/* Modal Header */}
         <div style={{
-          padding: '20px 24px',
+          padding: '16px 20px',
           borderBottom: '1px solid var(--border-subtle)',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'space-between'
+          justifyContent: 'space-between',
+          background: 'var(--bg-surface)'
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div style={{
-              width: '32px',
-              height: '32px',
-              borderRadius: '8px',
-              background: 'rgba(6, 182, 212, 0.15)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}>
-              <Layers size={18} color="var(--cyan)" />
-            </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <Layers size={16} color="var(--color-frontend)" />
             <div>
-              <h2 style={{ fontSize: '18px', margin: 0 }}>Load Codebase for Exploration</h2>
-              <p style={{ fontSize: '12px', color: 'var(--text-muted)', margin: 0 }}>
+              <h2 style={{ fontSize: '15px', margin: 0 }}>Load Codebase</h2>
+              <p style={{ fontSize: '11px', color: 'var(--text-muted)', margin: 0 }}>
                 Select a sample demo or provide your own repository
               </p>
             </div>
           </div>
-          <button className="btn-icon" onClick={onClose} disabled={loading}>
-            <X size={18} />
+          <button className="btn-icon" onClick={onClose} disabled={loading} style={{ padding: '4px' }}>
+            <X size={15} />
           </button>
         </div>
 
         {/* Modal Tabs */}
         <div style={{
           display: 'flex',
-          padding: '8px 24px 0 24px',
-          gap: '8px',
+          padding: '6px 16px 0 16px',
+          gap: '6px',
           borderBottom: '1px solid var(--border-subtle)',
-          background: 'rgba(0, 0, 0, 0.2)'
+          background: 'var(--bg-app)'
         }}>
           {[
             { id: 'sample', label: 'Preset Samples', icon: Sparkles },
@@ -169,7 +159,6 @@ export function RepoInputModal({ isOpen, onClose, onRepoLoaded, currentRepoId })
             { id: 'zip', label: 'ZIP Archive', icon: FolderArchive },
             { id: 'local', label: 'Local Directory', icon: FolderGit2 },
           ].map((tab) => {
-
             const Icon = tab.icon;
             const isActive = activeTab === tab.id;
             return (
@@ -180,25 +169,26 @@ export function RepoInputModal({ isOpen, onClose, onRepoLoaded, currentRepoId })
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '8px',
-                  padding: '10px 14px',
+                  gap: '6px',
+                  padding: '8px 12px',
                   background: 'transparent',
                   border: 'none',
-                  borderBottom: isActive ? '2px solid var(--cyan)' : '2px solid transparent',
-                  color: isActive ? 'var(--cyan)' : 'var(--text-secondary)',
+                  borderBottom: isActive ? '2px solid var(--text-primary)' : '2px solid transparent',
+                  color: isActive ? 'var(--text-primary)' : 'var(--text-muted)',
                   fontFamily: 'var(--font-heading)',
-                  fontSize: '13px',
+                  fontSize: '12px',
                   fontWeight: isActive ? 600 : 500,
                   cursor: 'pointer',
-                  transition: 'all 0.2s ease',
+                  transition: 'all 0.15s ease',
                 }}
               >
-                <Icon size={16} />
+                <Icon size={14} />
                 <span>{tab.label}</span>
               </button>
             );
           })}
         </div>
+
 
         {/* Modal Body */}
         <div style={{ padding: '24px', overflowY: 'auto' }}>

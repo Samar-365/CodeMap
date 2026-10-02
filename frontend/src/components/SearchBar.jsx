@@ -105,33 +105,31 @@ export function SearchBar({
       left: 0,
       right: 0,
       bottom: 0,
-      backgroundColor: 'rgba(5, 8, 15, 0.8)',
-      backdropFilter: 'blur(10px)',
+      backgroundColor: 'rgba(0, 0, 0, 0.7)',
       display: 'flex',
       alignItems: 'flex-start',
       justifyContent: 'center',
       zIndex: 100,
       paddingTop: '80px',
     }}>
-      <div className="glass-panel-heavy animate-fade-in" style={{
+      <div className="flat-panel-elevated" style={{
         width: '100%',
-        maxWidth: '580px',
+        maxWidth: '560px',
         maxHeight: '75vh',
         display: 'flex',
         flexDirection: 'column',
         overflow: 'hidden',
-        boxShadow: '0 25px 60px rgba(0, 0, 0, 0.85)',
       }}>
         {/* Search Header Input */}
         <div style={{
-          padding: '14px 18px',
+          padding: '12px 16px',
           display: 'flex',
           alignItems: 'center',
-          gap: '12px',
+          gap: '10px',
           borderBottom: '1px solid var(--border-subtle)',
-          background: 'rgba(0, 0, 0, 0.3)'
+          background: 'var(--bg-surface)'
         }}>
-          <Search size={18} color="var(--cyan)" />
+          <Search size={16} color="var(--text-muted)" />
           <input
             ref={inputRef}
             type="text"
@@ -142,18 +140,18 @@ export function SearchBar({
               flex: 1,
               background: 'transparent',
               border: 'none',
-              color: '#fff',
-              fontSize: '15px',
+              color: 'var(--text-primary)',
+              fontSize: '14px',
               outline: 'none',
               fontFamily: 'var(--font-heading)'
             }}
           />
           <kbd style={{
-            background: 'rgba(255, 255, 255, 0.08)',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
-            borderRadius: '4px',
-            padding: '2px 6px',
-            fontSize: '11px',
+            background: 'var(--bg-surface-elevated)',
+            border: '1px solid var(--border-subtle)',
+            borderRadius: '3px',
+            padding: '1px 5px',
+            fontSize: '10px',
             fontFamily: 'var(--font-mono)',
             color: 'var(--text-muted)'
           }}>
@@ -163,11 +161,11 @@ export function SearchBar({
 
         {/* Filter Pills */}
         <div style={{
-          padding: '8px 18px',
+          padding: '6px 16px',
           display: 'flex',
           gap: '6px',
           borderBottom: '1px solid var(--border-subtle)',
-          background: 'rgba(0, 0, 0, 0.15)',
+          background: 'var(--bg-app)',
           overflowX: 'auto'
         }}>
           {[
@@ -180,13 +178,13 @@ export function SearchBar({
             <button
               key={f.id}
               onClick={() => setFilterType(f.id)}
-              className="glass-pill"
+              className="flat-badge"
               style={{
                 fontSize: '11px',
-                padding: '3px 10px',
-                background: filterType === f.id ? 'rgba(6, 182, 212, 0.15)' : 'transparent',
-                borderColor: filterType === f.id ? 'var(--cyan)' : 'var(--border-subtle)',
-                color: filterType === f.id ? 'var(--cyan)' : 'var(--text-secondary)',
+                padding: '2px 8px',
+                background: filterType === f.id ? 'var(--bg-surface-elevated)' : 'transparent',
+                borderColor: filterType === f.id ? 'var(--border-medium)' : 'transparent',
+                color: filterType === f.id ? 'var(--text-primary)' : 'var(--text-muted)',
                 cursor: 'pointer'
               }}
             >
@@ -194,6 +192,7 @@ export function SearchBar({
             </button>
           ))}
         </div>
+
 
         {/* Results List */}
         <div style={{ flex: 1, overflowY: 'auto', padding: '10px 14px', maxHeight: '400px' }}>
